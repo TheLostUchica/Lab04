@@ -23,8 +23,7 @@ public class EntryPoint extends Application {
         Model model = new Model();
         FXMLController controller = loader.getController();
        
-        controller.setModel(model);
-        
+        controller.setModel(model);        
         
         stage.setTitle("JavaFX and Maven");
         stage.setScene(scene);

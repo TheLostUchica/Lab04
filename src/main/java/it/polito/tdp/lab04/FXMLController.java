@@ -36,7 +36,7 @@ public class FXMLController {
     private Button Button4;
 
     @FXML
-    private RadioButton Pulsante;
+    private Button Pulsante;
 
     @FXML
     private TextField Cognome;
@@ -55,11 +55,6 @@ public class FXMLController {
     
     Model model;
     
-    //è giusto metterli qui?
-    StudenteDAO sx = model.getStudenteDAO();	
-    CorsoDAO cx = model.getCorsodao();
-    
-
     @FXML
     void CercaCorsi(ActionEvent event) {
     	String m = this.Matricola.getText();
@@ -72,9 +67,9 @@ public class FXMLController {
     	}
     	
     	//controllo esistenza studente
-    	if (sx.getMappaStudenti().containsKey(matricola)) {
+    	if (model.getMappaStudenti().containsKey(matricola)) {
     		
-    		LinkedList<Corso> corsi = (LinkedList<Corso>) cx.getCorsidelloStudente(matricola);
+    		LinkedList<Corso> corsi = (LinkedList<Corso>) model.getCorsiStudente(matricola);
 		    	
 	    	if (SceltaCorsi.getValue() == null) {
 	    		
@@ -110,12 +105,13 @@ public class FXMLController {
     	Risultato.clear();
     	String corso = this.SceltaCorsi.getValue();
     	Corso C = null;
-    	for (Corso c : cx.getTuttiICorsi()) {
+    	for (Corso c : model.getTuttiICorsi()) {
     		if (c.getNome().compareTo(corso)==0) {
     			C = c;
     		}
     	}
-    	LinkedList<Studente> listaStudenti = (LinkedList<Studente>) cx.getStudentiIscrittiAlCorso(C);
+    	
+    	LinkedList<Studente> listaStudenti = (LinkedList<Studente>) model.getStudentiIscrittiAlCorso(C);
     	
     	if (Matricola.getText() == null) {
 	    	for (Studente s : listaStudenti) {
@@ -164,16 +160,16 @@ public class FXMLController {
     		e.printStackTrace();
     		this.Risultato.setText("Matricola inserita nel formato sbagliato");
     	}
-    	Studente s = sx.getMappaStudenti().get(matricola);
+    	Studente s = model.getMappaStudenti().get(matricola);
     	Corso C = null;
-    	for (Corso c : cx.getTuttiICorsi()) {
+    	for (Corso c : model.getTuttiICorsi()) {
     		if (c.getNome().compareTo(corso)==0) {
     			C = c;
     		}
     	}
     	boolean flag = false;
     	if (C!=null) {
-    		flag = cx.inscriviStudenteACorso(s, C);
+    		flag = model.inscriviStudenteACorso(s, C);
 	    	if(flag) {
 	    		Risultato.setText("Studente iscritto al corso");
 	    	}else {
@@ -199,7 +195,7 @@ public class FXMLController {
     	Studente s = null;
     	try {
     		Integer matricola = Integer.parseInt(m);
-    		s = sx.getStudenteDataMatricola(matricola);
+    		s = model.getStudenteDataMatricola(matricola);
     	}catch(NumberFormatException e) {
     		e.printStackTrace();
     		this.Risultato.setText("Matricola inserita nel formato sbagliato");
@@ -225,13 +221,13 @@ public class FXMLController {
         assert Nome != null : "fx:id=\"Nome\" was not injected: check your FXML file 'Scene.fxml'.";
         assert Risultato != null : "fx:id=\"Risultato\" was not injected: check your FXML file 'Scene.fxml'.";
         assert SceltaCorsi != null : "fx:id=\"SceltaCorsi\" was not injected: check your FXML file 'Scene.fxml'.";
-        for (Corso c : cx.getTuttiICorsi()) {
+    }
+    
+    public void setModel(Model model) {
+    	this.model = model;
+    	for (Corso c : model.getTuttiICorsi()) {
         	SceltaCorsi.getItems().add(c.getNome());
         }
         SceltaCorsi.getItems().add("");
-    }
-
-    public void setModel(Model model) {
-    	this.model = model;
     }
 }

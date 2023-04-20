@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -49,11 +48,11 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <RadioButton fx:id="Pulsante" contentDisplay="CENTER" mnemonicParsing="false" onAction="#TrovaStudente" prefHeight="25.0" prefWidth="25.0">
+                  <Button fx:id="Pulsante" mnemonicParsing="false" onAction="#TrovaStudente" text="   " textFill="#08d935">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
-                  </RadioButton>
+                  </Button>
                   <TextField fx:id="Nome">
                      <HBox.margin>
                         <Insets left="10.0" />

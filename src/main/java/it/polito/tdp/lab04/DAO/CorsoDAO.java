@@ -37,7 +37,7 @@ public class CorsoDAO {
 				String nome = rs.getString("nome");
 				int periodoDidattico = rs.getInt("pd");
 
-				System.out.println(codins + " " + numeroCrediti + " " + nome + " " + periodoDidattico);
+				//System.out.println(codins + " " + numeroCrediti + " " + nome + " " + periodoDidattico);
 
 				corsi.add(new Corso(nome, numeroCrediti, codins, periodoDidattico));
 				
@@ -57,6 +57,7 @@ public class CorsoDAO {
 	/*
 	 * Dato un codice insegnamento, ottengo il corso
 	 */
+	
 	public Corso getCorso(String cod) {
 		for (Corso c : this.getTuttiICorsi()) {
 			if (c.getCodins().compareTo(cod)==0) {
@@ -66,9 +67,11 @@ public class CorsoDAO {
 		return null;
 	}
 
+	
 	/*
 	 * Ottengo tutti gli studenti iscritti al Corso
 	 */
+	
 	public List<Studente> getStudentiIscrittiAlCorso(Corso corso) {
 		
 		String sql = "SELECT matricola" +
@@ -132,6 +135,7 @@ public class CorsoDAO {
 	/*
 	 * Data una matricola ed il codice insegnamento, iscrivi lo studente al corso.
 	 */
+	
 	public boolean inscriviStudenteACorso(Studente studente, Corso corso) {
 		if (this.getStudentiIscrittiAlCorso(corso).contains(studente)) {
 			return false;
